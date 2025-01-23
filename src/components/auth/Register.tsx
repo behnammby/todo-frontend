@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import api from "../../services/api";
+import styles from "./Register.module.css";
 
 interface RegisterForm {
   username: string;
@@ -20,19 +21,24 @@ export function Register() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <input {...register("username")} placeholder="Username" required />
+    <div className={styles["register-container"]}>
+      <form
+        className={styles["register-form"]}
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <input {...register("username")} placeholder="Username" required />
 
-      <input {...register("email")} placeholder="Email" required />
+        <input {...register("email")} placeholder="Email" required />
 
-      <input
-        {...register("password")}
-        type="password"
-        placeholder="Password"
-        required
-      />
+        <input
+          {...register("password")}
+          type="password"
+          placeholder="Password"
+          required
+        />
 
-      <button type="submit">Register</button>
-    </form>
+        <button type="submit">Register</button>
+      </form>
+    </div>
   );
 }

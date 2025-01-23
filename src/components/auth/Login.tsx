@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useAuth } from "../../context/AuthProvider";
 import api from "../../services/api";
+import styles from "./Login.module.css";
 
 interface LoginForm {
   email: string;
@@ -21,17 +22,19 @@ export function Login() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <input {...register("email")} placeholder="Email" required />
+    <div className={styles["login-container"]}>
+      <form className={styles["login-form"]} onSubmit={handleSubmit(onSubmit)}>
+        <input {...register("email")} placeholder="Email" required />
 
-      <input
-        {...register("password")}
-        type="password"
-        placeholder="Password"
-        required
-      />
+        <input
+          {...register("password")}
+          type="password"
+          placeholder="Password"
+          required
+        />
 
-      <button type="submit">Login</button>
-    </form>
+        <button type="submit">Login</button>
+      </form>
+    </div>
   );
 }

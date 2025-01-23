@@ -8,14 +8,22 @@ interface LoginForm {
   password: string;
 }
 
+interface LoginResponse {
+  token: string;
+  username: string;
+  email: string;
+}
+
 export function Login() {
   const { login } = useAuth();
   const { register, handleSubmit } = useForm<LoginForm>();
 
   async function onSubmit(data: LoginForm) {
     try {
-      const response = await api.post<{ token: string }>("/auth/login", data);
-      login(response.data.token);
+      const response = await api.post<LoginResponse>("/auth/login", data);
+      const { token, username, email } = response.data;
+
+      login(token, username, email);
     } catch (error) {
       console.error("Login failed: ", error);
     }

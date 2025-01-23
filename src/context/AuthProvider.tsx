@@ -2,13 +2,17 @@ import { createContext, PropsWithChildren, useContext, useState } from "react";
 import { useNavigate } from "react-router";
 
 interface AuthContextType {
-  user: string | null;
-  login: (token: string) => void;
+  token: string | null;
+  username: string | null;
+  email: string | null;
+  login: (token: string, username: string, email: string) => void;
   logout: () => void;
 }
 
 const initialContext: AuthContextType = {
-  user: null,
+  token: null,
+  username: null,
+  email: null,
   login: () => {},
   logout: () => {},
 };
@@ -20,25 +24,44 @@ export function useAuth() {
 }
 
 export default function AuthProvider({ children }: PropsWithChildren) {
-  const [user, setUser] = useState<string | null>(
+  const [token, setToken] = useState<string | null>(
     localStorage.getItem("token")
   );
+  const [username, setUsername] = useState<string | null>(
+    localStorage.getItem("username")
+  );
+  const [email, setEmail] = useState<string | null>(
+    localStorage.getItem("email")
+  );
+
   const navigate = useNavigate();
 
-  function login(token: string) {
+  function login(token: string, username: string, email: string) {
     localStorage.setItem("token", token);
-    setUser(token);
+    localStorage.setItem("username", username);
+    localStorage.setItem("email", email);
+
+    setToken(token);
+    setUsername(username);
+    setEmail(email);
+
     navigate("/");
   }
 
   function logout() {
     localStorage.removeItem("token");
-    setUser(null);
-    navigate("/");
+    localStorage.removeItem("username");
+    localStorage.removeItem("email");
+
+    setToken(null);
+    setUsername(null);
+    setEmail(null);
+
+    navigate("/login");
   }
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ token, username, email, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

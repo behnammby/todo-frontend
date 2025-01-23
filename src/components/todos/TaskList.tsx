@@ -8,7 +8,7 @@ export default function TaskList() {
     <div>
       <h2>My Todos</h2>
       {tasks.length > 0 ? (
-        tasks.map((task) => <TaskItem key={task.id} task={task} />)
+        tasks.map((task) => <TaskItem key={task.uuid} task={task} />)
       ) : (
         <p>No todos yet. Add some!</p>
       )}

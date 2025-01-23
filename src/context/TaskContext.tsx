@@ -6,19 +6,12 @@ import {
   PropsWithChildren,
 } from "react";
 import api from "../services/api";
-
-interface Task {
-  id: string;
-  title: string;
-  description: string;
-  status: string;
-  dueDate: string;
-}
+import { Task } from "../types/task";
 
 interface TasksContextType {
   tasks: Task[];
   fetchTasks: () => Promise<void>;
-  addTask: (todo: Omit<Task, "id">) => Promise<void>;
+  addTask: (todo: Omit<Task, "uuid">) => Promise<void>;
   updateTask: (id: string, updatedTodo: Partial<Task>) => Promise<void>;
   deleteTask: (id: string) => Promise<void>;
 }
@@ -40,16 +33,22 @@ export const useTasks = () => {
 export default function TasksProvider({ children }: PropsWithChildren) {
   const [tasks, setTasks] = useState<Task[]>([]);
 
-  async function fetchTasks() {
+  async function fetchTasks(ignore: boolean = false) {
     try {
       const response = await api.get("/tasks");
+      if (ignore) {
+        console.log("Ignore setting tasks");
+        return;
+      }
+      console.log("Setting tasks");
+      console.log("response.data :>> ", response.data);
       setTasks(response.data);
     } catch (error) {
       console.error("Failed to fetch task:", error);
     }
   }
 
-  async function addTask(task: Omit<Task, "id">) {
+  async function addTask(task: Omit<Task, "uuid">) {
     try {
       const response = await api.post("/tasks", task);
       setTasks((prev) => [...prev, response.data]);
@@ -58,12 +57,12 @@ export default function TasksProvider({ children }: PropsWithChildren) {
     }
   }
 
-  async function updateTask(id: string, updatedTask: Partial<Task>) {
+  async function updateTask(uuid: string, updatedTask: Partial<Task>) {
     try {
-      const response = await api.put(`/tasks/${id}`, updatedTask);
+      const response = await api.put(`/tasks/${uuid}`, updatedTask);
       setTasks((prev) =>
         prev.map((task) =>
-          task.id === id ? { ...task, ...response.data } : task
+          task.uuid === uuid ? { ...task, ...response.data } : task
         )
       );
     } catch (error) {
@@ -71,10 +70,10 @@ export default function TasksProvider({ children }: PropsWithChildren) {
     }
   }
 
-  async function deleteTask(id: string) {
+  async function deleteTask(uuid: string) {
     try {
-      await api.delete(`/tasks/${id}`);
-      setTasks((prev) => prev.filter((task) => task.id !== id));
+      await api.delete(`/tasks/${uuid}`);
+      setTasks((prev) => prev.filter((task) => task.uuid !== uuid));
     } catch (error) {
       console.error("Failed to delete task:", error);
     }
@@ -82,11 +81,8 @@ export default function TasksProvider({ children }: PropsWithChildren) {
 
   useEffect(() => {
     let ignore = false;
-    if (ignore) {
-      return;
-    }
 
-    fetchTasks();
+    fetchTasks(ignore);
 
     // Cleanup function to avoid loading tasks twice in development
     return () => {

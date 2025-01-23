@@ -7,7 +7,7 @@ export default function TaskForm() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [dueDate, setDueDate] = useState("");
-  const [status, setStatus] = useState("Pending");
+  const [completed, setCompleted] = useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -21,13 +21,13 @@ export default function TaskForm() {
       title,
       description,
       dueDate,
-      status,
+      completed,
     });
 
     setTitle("");
     setDescription("");
     setDueDate("");
-    setStatus("Pending");
+    setCompleted(false);
   }
 
   return (
@@ -55,10 +55,8 @@ export default function TaskForm() {
         Completed:
         <input
           type="checkbox"
-          checked={status === "Completed"}
-          onChange={(e) =>
-            setStatus(e.target.checked ? "Completed" : "InProgress")
-          }
+          checked={completed}
+          onChange={(e) => setCompleted(e.target.checked)}
         />
       </label>
       <button type="submit">Add Todo</button>

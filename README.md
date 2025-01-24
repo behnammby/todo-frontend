@@ -103,3 +103,10 @@ frontend/
 ## Conclusion
 This Todo List Application offers a robust foundation for managing tasks with a user-friendly interface and modern web technologies. Contributions and suggestions for improvement are welcome!
 
+## Screenshots
+![Login](./screenshots/001_Login.png "Login form")
+![Tasks list](./screenshots/002_TasksList.png "Tasks list")
+![Tasks form](./screenshots/003_TasksForm.png "Tasks form")
+![Tasks](./screenshots/004_InlineEditing.png "Tasks")
+![Register form"](./screenshots/005_Register.png "Register form")
+![Testing](./screenshots/006_Testing.png "Testing")

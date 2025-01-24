@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useTasks } from "../../context/TaskContext";
 import { Task } from "../../types/task";
-import { Header } from "../layout/Header";
+import { TaskHeader } from "./TaskHeader";
 import TaskForm from "./TaskForm";
 import TasksList from "./TasksList";
 import { SortOrder } from "../../types/sort.order";
@@ -21,13 +21,11 @@ export default function Tasks() {
   }
 
   return (
-    <>
-      <div className="flex flex-col max-w-md mx-auto bg-white shadow-lg rounded-lg overflow-hidden mt-16">
-        <Header sort={sort} onSort={handleSortClick} />
-        <TaskForm />
-        <TasksList tasks={sortedTasks} />
-      </div>
-    </>
+    <div className="flex flex-col bg-white shadow-lg rounded-lg overflow-hidden">
+      <TaskHeader sort={sort} onSort={handleSortClick} />
+      <TaskForm />
+      <TasksList tasks={sortedTasks} />
+    </div>
   );
 }
 

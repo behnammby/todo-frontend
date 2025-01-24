@@ -4,7 +4,7 @@ interface Props {
   onClick: () => void;
 }
 
-export default function Logout({ onClick }: Props) {
+export default function LogoutButton({ onClick }: Props) {
   return (
     <button
       title="Logout"

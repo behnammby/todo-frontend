@@ -1,25 +1,19 @@
+import { TbUser } from "react-icons/tb";
+import LogoutButton from "../button/Logout";
 import { useAuth } from "../../context/AuthProvider";
-import { SortOrder } from "../../types/sort.order";
-import SortButton from "../button/Sort";
-import Logout from "./Logout";
 
-interface Props {
-  sort: SortOrder;
-  onSort: () => void;
-}
-
-export function Header({ sort, onSort }: Props) {
+export function Header() {
   const { username, logout } = useAuth();
 
   return (
-    <div className="flex justify-between items-center px-4 py-2 border-b-2 border-b-gray-300 border-dashed">
-      <h1 className="text-gray-800 font-bold text-xl uppercase">
-        {username}'s To-Do
-      </h1>
-      <div className="flex items-center justify-end">
-        <SortButton sort={sort} onClick={onSort} />
-        <Logout onClick={logout} />
-      </div>
+    <div className="flex flex-row mb-3 justify-end items-center px-3">
+      {/* <div className="flex justify-start items-center">
+        <TbUser className="text-lg mr-2" />
+        <div className="uppercase">{username}</div>
+      </div> */}
+      <TbUser className="text-lg mr-2" />
+      <div className="uppercase mr-3">{username}</div>
+      <LogoutButton onClick={logout} />
     </div>
   );
 }

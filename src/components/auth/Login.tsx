@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { useAuth } from "../../context/AuthProvider";
 import api from "../../services/api";
 import styles from "./Login.module.css";
+import { Link, NavLink } from "react-router";
 
 interface LoginForm {
   email: string;
@@ -43,6 +44,12 @@ export function Login() {
 
         <button type="submit">Login</button>
       </form>
+      <div className={styles["foot-note"]}>
+        Not a member?{" "}
+        <NavLink to="/register" end>
+          Register
+        </NavLink>
+      </div>
     </div>
   );
 }

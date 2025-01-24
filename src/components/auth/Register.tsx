@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import api from "../../services/api";
 import styles from "./Register.module.css";
+import { NavLink } from "react-router";
 
 interface RegisterForm {
   username: string;
@@ -39,6 +40,12 @@ export function Register() {
 
         <button type="submit">Register</button>
       </form>
+      <div className={styles["foot-note"]}>
+        Already a member?{" "}
+        <NavLink to="/login" end>
+          Login
+        </NavLink>
+      </div>
     </div>
   );
 }

@@ -73,3 +73,20 @@
 .login-form a:hover {
   text-decoration: underline;
 }
+
+.foot-note {
+  margin-top: 10px;
+  color: #b4b2b2;
+}
+
+.foot-note a {
+  color: #bbbbbb;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.foot-note a:hover {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: bold;
+}

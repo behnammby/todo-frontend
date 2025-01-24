@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import { useTasks } from "../../context/TaskContext";
-import { TbDeviceFloppy } from "react-icons/tb";
 import { toast } from "react-toastify";
 import { SaveButton } from "../button/Save";
 

@@ -1,7 +1,5 @@
-import { useAuth } from "../../context/AuthProvider";
 import { SortOrder } from "../../types/sort.order";
 import SortButton from "../button/Sort";
-import LogoutButton from "../button/Logout";
 
 interface Props {
   sort: SortOrder;

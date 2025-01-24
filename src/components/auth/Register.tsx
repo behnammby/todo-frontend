@@ -1,7 +1,8 @@
 import { useForm } from "react-hook-form";
 import api from "../../services/api";
 import styles from "./Register.module.css";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
+import { toast } from "react-toastify";
 
 interface RegisterForm {
   username: string;
@@ -10,14 +11,21 @@ interface RegisterForm {
 }
 
 export function Register() {
+  const navigate = useNavigate();
   const { register, handleSubmit } = useForm<RegisterForm>();
 
   async function onSubmit(data: RegisterForm) {
     try {
       await api.post("/auth/register", data);
-      alert("Registration successful, please login.");
+      // alert("Registration successful, please login.");
+
+      toast.success("Registration successful, you may now login");
+
+      navigate("/login");
     } catch (error) {
-      console.error("Registration failed: ", error);
+      // console.error("Registration failed: ", error);
+
+      toast.error("Registration failed");
     }
   }
 

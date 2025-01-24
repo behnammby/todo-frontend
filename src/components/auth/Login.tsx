@@ -2,7 +2,8 @@ import { useForm } from "react-hook-form";
 import { useAuth } from "../../context/AuthProvider";
 import api from "../../services/api";
 import styles from "./Login.module.css";
-import { Link, NavLink } from "react-router";
+import { NavLink } from "react-router";
+import { toast } from "react-toastify";
 
 interface LoginForm {
   email: string;
@@ -26,7 +27,8 @@ export function Login() {
 
       login(token, username, email);
     } catch (error) {
-      console.error("Login failed: ", error);
+      // console.error("Login failed: ", error);
+      toast.error(`Login failed. Please check your credentials.`);
     }
   }
 

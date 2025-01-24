@@ -30,10 +30,12 @@ export default function TaskForm() {
       completed: false,
     }).then((res) => {
       if (res) {
-        toast(`Task ${title} added`);
+        toast.success(`Task "${title}" added`);
 
         setTitle("");
         setDueDate(today);
+      } else {
+        toast.error(`Adding task failed`);
       }
     });
   }

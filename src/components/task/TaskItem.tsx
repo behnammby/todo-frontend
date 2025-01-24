@@ -43,7 +43,12 @@ export default function TaskItem({
   }
 
   async function handleDeleteTask() {
-    await deleteTask(task.uuid);
+    const result = await deleteTask(task.uuid);
+    if (result) {
+      toast.success(`Task "${task.title}" removed`);
+    } else {
+      toast.error(`Removing task ${task.title} failed.`);
+    }
   }
 
   return (

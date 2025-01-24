@@ -5,6 +5,7 @@ import App from "./App.tsx";
 
 import "./index.css";
 import AuthProvider from "./context/AuthProvider.tsx";
+import { ToastContainer } from "react-toastify";
 
 createRoot(document.getElementById("root")!).render(
   <>
@@ -12,6 +13,7 @@ createRoot(document.getElementById("root")!).render(
       <BrowserRouter>
         <AuthProvider>
           <App />
+          <ToastContainer />
         </AuthProvider>
       </BrowserRouter>
     </StrictMode>

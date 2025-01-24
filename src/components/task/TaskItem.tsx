@@ -1,25 +1,64 @@
+import { useRef, useState } from "react";
+import { useTasks } from "../../context/TaskContext";
 import { Task } from "../../types/task";
+import { SaveButton } from "../button/Save";
 
 interface Props {
   task: Task;
+  isEditing: boolean;
+  onDescriptionClick: () => void;
+  onDescriptionChange: () => void;
 }
 
-export default function TaskItem({ task }: Props) {
+export default function TaskItem({
+  task,
+  isEditing = false,
+  onDescriptionClick,
+  onDescriptionChange,
+}: Props) {
+  const { updateTask } = useTasks();
+
   return (
-    <li className="py-4">
+    <li className="py-4 flex flex-col">
       <div className="flex items-center">
         <input
-          id="todo1"
-          name="todo1"
           type="checkbox"
           className="h-4 w-4 text-teal-600 focus:ring-teal-500 border-gray-300 rounded"
         />
-        <label className="ml-3 block text-gray-900">
+        <label className="ml-3 w-full flex items-center justify-between text-gray-900">
           <span className="text-lg font-medium">{task.title}</span>
           <span className="text-sm font-light text-gray-500">
-            Due on {task.dueDate}
+            Due on {task.dueDate.split("T")[0]}
           </span>
         </label>
+      </div>
+      <div className="flex justify-start items-center mt-3 border-l-2 border-gray-300 border-dashed pl-2.5">
+        {isEditing ? (
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+            }}
+          >
+            <input
+              className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
+              type="text"
+              value={task.description}
+            />
+            <SaveButton
+              textSize="xl"
+              type="submit"
+              onClick={onDescriptionChange}
+            />
+          </form>
+        ) : (
+          <span
+            title="Click to edit"
+            className="font-light text-xs cursor-pointer"
+            onClick={onDescriptionClick}
+          >
+            {task.description}
+          </span>
+        )}
       </div>
     </li>
   );

@@ -1,27 +1,25 @@
-// import { useNavigate } from "react-router";
-import styles from "./Header.module.css";
 import { useAuth } from "../../context/AuthProvider";
+import { SortOrder } from "../../types/sort.order";
+import SortButton from "../button/Sort";
+import Logout from "./Logout";
 
-export default function Header() {
+interface Props {
+  sort: SortOrder;
+  onSort: () => void;
+}
+
+export function Header({ sort, onSort }: Props) {
   const { username, logout } = useAuth();
-  // const navigate = useNavigate();
-
-  const handleLogout = () => {
-    logout();
-  };
 
   return (
-    <header className={styles["header"]}>
-      <nav className={styles["nav"]}>
-        <h1 className={styles["title"]}>Todo App for {username}</h1>
-        <button
-          className={styles["logout-button"]}
-          // style={logoutButtonStyle}
-          onClick={handleLogout}
-        >
-          Logout
-        </button>
-      </nav>
-    </header>
+    <div className="flex justify-between items-center px-4 py-2 border-b-2 border-b-gray-300 border-dashed">
+      <h1 className="text-gray-800 font-bold text-xl uppercase">
+        {username}'s To-Do
+      </h1>
+      <div className="flex items-center justify-end">
+        <SortButton sort={sort} onClick={onSort} />
+        <Logout onClick={logout} />
+      </div>
+    </div>
   );
 }

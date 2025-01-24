@@ -1,5 +1,8 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTasks } from "../../context/TaskContext";
+import { TbDeviceFloppy } from "react-icons/tb";
+import { toast } from "react-toastify";
+import { SaveButton } from "../button/Save";
 
 export default function TaskForm() {
   const { addTask } = useTasks();
@@ -7,46 +10,74 @@ export default function TaskForm() {
   const [title, setTitle] = useState<string>("");
   const [dueDate, setDueDate] = useState<string>("");
 
-  function handleAddTask() {
+  const input = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    setDueDate(today());
+
+    input.current?.focus();
+  }, []);
+
+  async function handleAddTask() {
     if (!title.length) {
       return;
     }
 
-    addTask({
+    await addTask({
       title,
       description: title,
       dueDate,
       completed: false,
-    }).then(() => {
-      alert("Task added!");
+    }).then((res) => {
+      if (res) {
+        toast(`Task ${title} added`);
+
+        setTitle("");
+        setDueDate(today);
+      }
     });
   }
 
   return (
-    <form className="w-full max-w-md mx-auto px-4 py-2 mt-5">
+    <form
+      className="w-full max-w-md mx-auto px-4 py-2 mt-5"
+      onSubmit={(e) => {
+        e.preventDefault();
+        handleAddTask();
+      }}
+    >
       <div className="flex items-center border-b-2 border-teal-500 py-2">
         <input
+          ref={input}
           className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          placeholder="Add a task"
+          placeholder="I wanna..."
         />
         <input
           className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
           type="date"
           value={dueDate}
           onChange={(e) => setDueDate(e.target.value)}
+          placeholder="Due date"
           required
         />
-        <button
-          className="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded"
+        <SaveButton textSize="2xl" onClick={handleAddTask} />
+        {/* <button
+          // className="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded"
+          title="Add"
+          className="text-2xl hover:text-amber-400 cursor-pointer outline-0"
           type="button"
           onClick={handleAddTask}
         >
-          Add
-        </button>
+          <TbDeviceFloppy />
+        </button> */}
       </div>
     </form>
   );
+}
+
+function today() {
+  return new Date().toISOString().split("T")[0];
 }

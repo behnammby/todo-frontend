@@ -11,17 +11,17 @@ import { Task } from "../types/task";
 interface TasksContextType {
   tasks: Task[];
   fetchTasks: () => Promise<void>;
-  addTask: (todo: Omit<Task, "uuid">) => Promise<void>;
-  updateTask: (id: string, updatedTodo: Partial<Task>) => Promise<void>;
-  deleteTask: (id: string) => Promise<void>;
+  addTask: (todo: Omit<Task, "uuid">) => Promise<boolean>;
+  updateTask: (id: string, updatedTodo: Partial<Task>) => Promise<boolean>;
+  deleteTask: (id: string) => Promise<boolean>;
 }
 
 const initialContext: TasksContextType = {
   tasks: [],
   fetchTasks: async () => {},
-  addTask: async () => {},
-  updateTask: async () => {},
-  deleteTask: async () => {},
+  addTask: async () => false,
+  updateTask: async () => false,
+  deleteTask: async () => false,
 };
 
 export const TasksContext = createContext<TasksContextType>(initialContext);
@@ -52,8 +52,12 @@ export default function TasksProvider({ children }: PropsWithChildren) {
     try {
       const response = await api.post("/tasks", task);
       setTasks((prev) => [...prev, response.data]);
+
+      return true;
     } catch (error) {
       console.error("Failed to add task:", error);
+
+      return false;
     }
   }
 
@@ -65,8 +69,12 @@ export default function TasksProvider({ children }: PropsWithChildren) {
           task.uuid === uuid ? { ...task, ...response.data } : task
         )
       );
+
+      return true;
     } catch (error) {
       console.error("Failed to update task:", error);
+
+      return false;
     }
   }
 
@@ -74,8 +82,12 @@ export default function TasksProvider({ children }: PropsWithChildren) {
     try {
       await api.delete(`/tasks/${uuid}`);
       setTasks((prev) => prev.filter((task) => task.uuid !== uuid));
+
+      return true;
     } catch (error) {
       console.error("Failed to delete task:", error);
+
+      return false;
     }
   }
 

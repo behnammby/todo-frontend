@@ -17,6 +17,7 @@ export default function TasksList({ tasks }: Props) {
           task={t}
           isEditing={editingTask !== null && editingTask.uuid === t.uuid}
           onDescriptionClick={() => setEditingTask(t)}
+          onDescriptionChange={() => setEditingTask(null)}
         />
       ))}
     </ul>

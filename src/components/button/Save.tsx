@@ -2,12 +2,12 @@ import { TbDeviceFloppy } from "react-icons/tb";
 
 interface Props {
   textSize?: "xl" | "2xl" | "3xl";
-  onClick: () => void;
+  onClick?: () => void;
   type?: "button" | "submit";
 }
 
 export function SaveButton({
-  onClick,
+  onClick = undefined,
   textSize = "2xl",
   type = "button",
 }: Props) {

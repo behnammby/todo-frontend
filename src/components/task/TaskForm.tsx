@@ -25,7 +25,7 @@ export default function TaskForm() {
     await addTask({
       title,
       description: title,
-      dueDate,
+      dueDate: `${dueDate}T00:00:00.000Z`,
       completed: false,
     }).then((res) => {
       if (res) {

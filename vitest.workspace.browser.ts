@@ -6,13 +6,13 @@ export default defineWorkspace([
   {
     extends: "vite.config.ts",
     test: {
-      name: "browser",
       browser: {
         enabled: true,
         provider: "webdriverio",
         instances: [
           {
             browser: "edge",
+            headless: false,
           },
         ],
         // https://vitest.dev/guide/browser/webdriverio

@@ -113,5 +113,6 @@ This Todo List Application offers a robust foundation for managing tasks with a 
 ![Tasks list](./screenshots/002_TasksList.png "Tasks list")
 ![Tasks form](./screenshots/003_TasksForm.png "Tasks form")
 ![Tasks](./screenshots/004_InlineEditing.png "Tasks")
-![Register form"](./screenshots/005_Register.png "Register form")
-![Testing](./screenshots/006_Testing.png "Testing")
+![Register form](./screenshots/005_Register.png "Register form")
+![Testing](https://github.com/user-attachments/assets/325008b5-cac3-4aaf-b949-1bd78f9b4d1f "Tests")
+

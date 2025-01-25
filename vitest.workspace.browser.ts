@@ -15,9 +15,6 @@ export default defineWorkspace([
             headless: false,
           },
         ],
-        // https://vitest.dev/guide/browser/webdriverio
-        // configs: [
-        // ],
       },
     },
   },

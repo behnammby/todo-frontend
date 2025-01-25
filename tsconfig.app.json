@@ -24,7 +24,8 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
     "types": [
-      "@vitest/browser/providers/webdriverio"
+      "@vitest/browser/providers/webdriverio",
+      "@vitest/browser/providers/playwright"
     ]
   },
   "include": [

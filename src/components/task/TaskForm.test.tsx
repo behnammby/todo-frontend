@@ -1,24 +1,23 @@
 import { expect, test, vi } from "vitest";
 import { render } from "vitest-browser-react";
-import { toast } from "react-toastify";
 import TaskForm from "./TaskForm";
 import { TasksContext } from "../../context/TaskContext";
 import { Task } from "../../types/task";
-import { userEvent, page } from "@vitest/browser/context";
+import { userEvent } from "@vitest/browser/context";
 
 test("renders TaskForm and handles task submission", async () => {
   const tasksMock: Task[] = [];
   const fetchTasksMock = vi.fn(() => Promise.resolve());
-  const addTaskMock = vi.fn((todo: Omit<Task, "uuid">) =>
+  const addTaskMock = vi.fn((_todo: Omit<Task, "uuid">) =>
     Promise.resolve(true)
   );
-  const updateTaskMock = vi.fn((id: string, updatedTodo: Partial<Task>) =>
+  const updateTaskMock = vi.fn((_id: string, _updatedTodo: Partial<Task>) =>
     Promise.resolve(true)
   );
-  const deleteTaskMock = vi.fn((id: string) => Promise.resolve(true));
+  const deleteTaskMock = vi.fn((_id: string) => Promise.resolve(true));
 
-  const toastSuccessMock = vi.spyOn(toast, "success");
-  const toastErrorMock = vi.spyOn(toast, "error");
+  // const toastSuccessMock = vi.spyOn(toast, "success");
+  // const toastErrorMock = vi.spyOn(toast, "error");
 
   const screen = render(
     <TasksContext.Provider
